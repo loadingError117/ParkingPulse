@@ -41,7 +41,7 @@ def launch_webcam():
     cap = cv2.VideoCapture(0)
     cap.set(3, 640)
     cap.set(4, 480)
-
+    
     # model
     model = YOLO('yolo11n.pt')
 
@@ -89,8 +89,10 @@ def launch_webcam():
 #================================================================================================
 def launch_IPcamera():
 
-    # start webcam
-    cap = cv2.VideoCapture(0)
+    # Starting the IP Camera
+    rtsp_url = "rtsp://admin:password111@192.168.1.108:554/live" 
+    cap = cv2.VideoCapture(rtsp_url)
+
     cap.set(3, 640)
     cap.set(4, 480)
 
@@ -147,16 +149,36 @@ def home_page():
 
     # create a label for the title
     label = Label(homePage, text="Home", font=("Arial", 48), bg="grey")
-    label.pack(padx=20, pady=(225, 0))
+    label.pack(padx=20, pady=(50, 0))
+
+    # create a frame to hold the buttons
+    button_frame = Frame(homePage, bg="grey")
+    button_frame.pack(pady=20)
 
     # create a button to launch the IPcamera
-    IPcamera_button = Button(homePage, text="Launch IPCamera", width=20, height=2, command=launch_IPcamera)
-    IPcamera_button.pack(pady=10)
+    IPcamera_button = Button(button_frame, text="Launch IPCamera", width=20, height=10, command=launch_IPcamera)
+    IPcamera_button.grid(row=0, column=0, padx=10, pady=10)
 
     # create a button to launch the webcam
     # DELETE THIS BUTTON AFTER TESTING
-    webcam_button = Button(homePage, text="Launch WebCam", width=20, height=2, command=launch_webcam)
-    webcam_button.pack(pady=10)
+    webcam_button = Button(button_frame, text="Launch WebCam", width=20, height=10, command=launch_webcam)
+    webcam_button.grid(row=0, column=1, padx=10, pady=10)
+
+    # create a settings button
+    settings_button = Button(button_frame, text="Settings", width=20, height=10)
+    settings_button.grid(row=0, column=2, padx=10, pady=10)
+
+    # create additional buttons to fill the 2x3 grid
+    button4 = Button(button_frame, text="Button 4", width=20, height=10)
+    button4.grid(row=1, column=0, padx=10, pady=10)
+
+    button5 = Button(button_frame, text="Button 5", width=20, height=10)
+    button5.grid(row=1, column=1, padx=10, pady=10)
+
+    button6 = Button(button_frame, text="Button 6", width=20, height=10)
+    button6.grid(row=1, column=2, padx=10, pady=10)
+
+    
 
 #================================================================================================
 #Login Page Window
@@ -184,4 +206,3 @@ login_button.pack(pady=10)
 
 # run home page
 login_app.mainloop()
-
