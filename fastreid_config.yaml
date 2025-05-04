@@ -1,0 +1,20 @@
+MODEL:
+  DEVICE: "cuda"
+  WEIGHTS: "C:/Users/josep/Desktop/Vehicle_FastReID/vehicleid_bot_R50-ibn.pth"
+  META_ARCHITECTURE: Baseline
+
+  BACKBONE:
+    NAME: build_resnet_backbone
+    DEPTH: 50x
+    LAST_STRIDE: 1
+    WITH_IBN: True
+    PRETRAIN: True
+
+  HEADS:
+    NAME: EmbeddingHead
+    POOL_LAYER: GeneralizedMeanPooling
+    NECK_FEAT: before
+    CLS_LAYER: Linear
+
+INPUT:
+  SIZE_TEST: [256, 256]
